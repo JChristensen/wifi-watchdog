@@ -14,7 +14,7 @@ sudo apt update && sudo apt install git
 
 ## Installation
 ```bash
-# change to your root directory
+# change to your home directory
 cd
 # clone the repo
 git clone --depth 1 https://github.com/JChristensen/wifi-watchdog

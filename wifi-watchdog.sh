@@ -6,7 +6,7 @@
 PING_COUNT=3
 FAIL_THRESHOLD=3
 FAIL_FILE="/tmp/wifi-watchdog-fails"
-TARGET_FILE="wifi-watchdog-target"
+TARGET_FILE="/usr/local/bin/wifi-watchdog-target"
 
 if [ ! -f "$FAIL_FILE" ]; then
     echo 0 > "$FAIL_FILE"

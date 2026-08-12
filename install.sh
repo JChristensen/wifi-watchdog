@@ -9,7 +9,7 @@ if [[ $UID != $ROOT_UID ]]; then
     exit 1
 fi
 
-TARGET_FILE="wifi-watchdog-target"
+TARGET_FILE="/home/$SUDO_USER/wifi-watchdog/wifi-watchdog-target"
 target="192.168.1.1"
 echo; read -p "The default ping target is $target. Do you want to change this? [y/N] "
 r=${REPLY,,}    # make lower case
