@@ -27,6 +27,7 @@ When complete, the install script will offer to start the watchdog.
 
 ## Script summary
 
+* **check.sh** - Retrieve and display watchdog messages from a given host.
 * **install.sh** - Installs the watchdog.
 * **start.sh** - Enables and starts the watchdog.
 * **status.sh** - Prints status of the watchdog timer and service units.
