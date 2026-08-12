@@ -1,0 +1,13 @@
+# WiFi watchdog service file.
+# /etc/systemd/system/wifi-watchdog.service
+# From https://www.digikey.com/en/maker/tutorials/2026/how-to-keep-a-raspberry-pi-zero-w-or-zero-2-w-reliably-connected-to-wifi
+
+[Unit]
+Description=WiFi watchdog for Raspberry Pi
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/wifi-watchdog.sh
+
+[Install]
+WantedBy=default.target
