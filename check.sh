@@ -21,7 +21,7 @@ case "$1" in
         ssh $1 "journalctl --grep \"wifi-watchdog:\"" | less
         exit
         ;;
-    *) ssh $1 "journalctl --grep \"wifi-watchdog:\"" | grep -v "ping OK" | less
+    *) ssh $1 "journalctl --grep \"wifi-watchdog:\"" | grep -v "ping OK" #| less
         exit
         ;;
 esac
