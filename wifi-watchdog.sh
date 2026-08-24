@@ -29,6 +29,11 @@ else
 
     if [ "$FAILS" -ge "$FAIL_THRESHOLD" ]; then
         conn_name=$(nmcli --terse conn show --active|head -1|awk -F":" '!/^lo:/ {print $1}')
+        if ! (( ${#conn_name} )); then
+            logger "wifi-watchdog: no active connection found, rebooting"
+            echo 0 > "$FAIL_FILE"
+            /usr/sbin/reboot
+        fi
         logger "wifi-watchdog: threshold reached, attempting to restart connection: $conn_name"
         nmcli connection down "$conn_name"
         sleep 5
@@ -36,10 +41,10 @@ else
         sleep 15
 
         if ping -c 3 -W 3 "$PING_TARGET" > /dev/null 2>&1; then
-            logger "wifi-watchdog: WiFi restart successful"
+            logger "wifi-watchdog: wifi restart successful"
             echo 0 > "$FAIL_FILE"
         else
-            logger "wifi-watchdog: WiFi restart failed, rebooting"
+            logger "wifi-watchdog: wifi restart failed, rebooting"
             echo 0 > "$FAIL_FILE"
             /usr/sbin/reboot
         fi
