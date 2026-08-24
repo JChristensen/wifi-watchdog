@@ -17,13 +17,26 @@ sudo apt update && sudo apt install git
 # change to your home directory
 cd
 # clone the repo
-git clone --depth 1 https://github.com/JChristensen/wifi-watchdog
+git clone https://github.com/JChristensen/wifi-watchdog
 # run the install script
 sudo wifi-watchdog/install.sh
 ```
 The install script will ask for an IP address that the watchdog will use to test connectivity, the default is 192.168.1.1.
 
 When complete, the install script will offer to start the watchdog.
+
+## Update
+When a new version is available:
+```bash
+# change to the wifi-watchdog repo directory
+cd ~/wifi-watchdog
+# stop the watchdog
+sudo ./stop.sh
+# update the repo
+git pull
+# install the update and restart the watchdog
+sudo ./install.sh
+```
 
 ## Script summary
 
