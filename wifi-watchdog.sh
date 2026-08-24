@@ -21,7 +21,7 @@ PING_TARGET=$(cat "$TARGET_FILE")
 
 if ping -c "$PING_COUNT" -W 3 "$PING_TARGET" > /dev/null 2>&1; then
     echo 0 > "$FAIL_FILE"
-    logger "wifi-watchdog: ping OK"
+    logger "wifi-watchdog: ping OK $PING_TARGET"
 else
     FAILS=$((FAILS + 1))
     echo "$FAILS" > "$FAIL_FILE"
