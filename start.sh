@@ -9,8 +9,9 @@ if [[ $UID != $ROOT_UID ]]; then
     exit 1
 fi
 
-echo "Enabling and starting the wifi-watchdog..."
-logger "wifi-watchdog: enabling and starting."
+version=$(cat /usr/local/bin/wifi-watchdog.version)
+echo "Enabling and starting the wifi-watchdog version $version..."
+logger "wifi-watchdog: enabling and starting $version"
 systemctl daemon-reload
 systemctl enable wifi-watchdog.timer wifi-watchdog.service
 systemctl start wifi-watchdog.timer wifi-watchdog.service

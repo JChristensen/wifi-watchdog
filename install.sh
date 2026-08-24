@@ -9,8 +9,12 @@ if [[ $UID != $ROOT_UID ]]; then
     exit 1
 fi
 
-TARGET_FILE="/home/$SUDO_USER/wifi-watchdog/wifi-watchdog-target"
+REPO_DIR="/home/$SUDO_USER/wifi-watchdog"
+TARGET_FILE="$REPO_DIR/wifi-watchdog-target"
 target="192.168.1.1"
+version=$(git -C $REPO_DIR log -1 --format="%h %ai")
+echo $version >/usr/local/bin/wifi-watchdog.version
+
 echo; read -p "The default ping target is $target. Do you want to change this? [y/N] "
 r=${REPLY,,}    # make lower case
 if [[ "$r" =~ ^[[:space:]]*y ]]; then
@@ -21,17 +25,19 @@ echo "Using $target as ping target."
 echo $target >$TARGET_FILE
 
 echo -e "\nInstalling systemd unit files..."
-cp -av /home/$SUDO_USER/wifi-watchdog/wifi-watchdog.timer /etc/systemd/system/
-cp -av /home/$SUDO_USER/wifi-watchdog/wifi-watchdog.service /etc/systemd/system/
+cp -av $REPO_DIR/wifi-watchdog.timer /etc/systemd/system/
+cp -av $REPO_DIR/wifi-watchdog.service /etc/systemd/system/
 
 echo -e "\nInstalling script..."
-cp -av /home/$SUDO_USER/wifi-watchdog/wifi-watchdog.sh /usr/local/bin
-cp -av /home/$SUDO_USER/wifi-watchdog/wifi-watchdog-target /usr/local/bin
+cp -av $REPO_DIR/wifi-watchdog.sh /usr/local/bin
+cp -av $REPO_DIR/wifi-watchdog-target /usr/local/bin
 
-echo; read -p "Installation complete. Do you want to start the watchdog? [Y/n] "
+echo; read -p "Do you want to start the watchdog? [Y/n] "
 r=${REPLY,,}    # make lower case
 if [[ "$r" =~ ^[[:space:]]*n ]]; then
     exit
 else
-    /home/$SUDO_USER/wifi-watchdog/start.sh
+    $REPO_DIR/start.sh
 fi
+
+echo -e "\nInstallation complete, version $version"
