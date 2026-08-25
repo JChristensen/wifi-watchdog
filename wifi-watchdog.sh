@@ -33,6 +33,7 @@ else
             logger "wifi-watchdog: no active connection found, rebooting"
             echo 0 > "$FAIL_FILE"
             /usr/sbin/reboot
+            exit 1
         fi
         logger "wifi-watchdog: threshold reached, attempting to restart connection: $conn_name"
         nmcli connection down "$conn_name"
@@ -47,6 +48,7 @@ else
             logger "wifi-watchdog: wifi restart failed, rebooting"
             echo 0 > "$FAIL_FILE"
             /usr/sbin/reboot
+            exit 1
         fi
     fi
 fi
